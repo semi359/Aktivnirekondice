@@ -1,0 +1,53 @@
+﻿@page
+@using ClankyWeb.Data.Models
+@model ClankyWeb.Pages.Rezervace.RezervaceModel
+@{
+    ViewData["Title"] = "Rezervace";
+    ViewData["Description"] = "Rezervujte si místo na našich rekondičních pobytech, zdravotně-kondičním cvičení a sportovním kroužku pro seniory | Aktivní rekondice";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (User.IsInRole(NRole.Admin) || User.IsInRole(NRole.Autor))
+{
+    <p class="text-end">
+        <a asp-page="./Create" class="btn btn-success">
+            <i class="bi bi-calendar-plus"></i> Nová událost
+        </a>
+    </p>
+}
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    @foreach (var ev in Model.Events)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@ev.Title</h5>
+                    <p class="card-text">@ev.Date.ToString("g")</p>
+                    @{
+                        // obsazenost = potvrzené + čekající
+                        var occupied = ev.Reservations.Count(r =>
+                        r.Status == ReservationStatus.Confirmed ||
+                        r.Status == ReservationStatus.Pending);
+
+                    }
+                    <p class="card-text">
+                        Místa: @occupied / @ev.Capacity
+
+                    </p>
+                    <a asp-page="./Details" asp-route-id="@ev.Id" class="btn btn-success">
+                        Chci si rezervovat místo
+                    </a>
+                    @if (User.IsInRole(NRole.Admin) || User.IsInRole(NRole.Autor))
+                    {
+                        <a asp-page="./Manage/UsersReservation" asp-route-id="@ev.Id"
+                           class="btn btn-success">
+                            Spravovat rezervace
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

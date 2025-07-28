@@ -1,0 +1,32 @@
+﻿@page
+@model ClankyWeb.Pages.Rezervace.CreateModel
+@{
+    ViewData["Title"] = "Nová událost";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+  <div class="mb-3">
+        <label asp-for="EventItem.Title" class="form-label">Název</label>
+        <input asp-for="EventItem.Title" class="form-control" />
+        <span asp-validation-for="EventItem.Title" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+        <label asp-for="EventItem.Date" class="form-label">Datum a čas</label>
+        <input asp-for="EventItem.Date" type="datetime-local" class="form-control" />
+  </div>
+  <div class="mb-3">
+        <label asp-for="EventItem.Description" class="form-label">Popis</label>
+        <textarea asp-for="EventItem.Description" class="form-control"></textarea>
+  </div>
+    <div class="mb-3">
+        <label asp-for="EventItem.Capacity" class="form-label">Kapacita</label>
+        <input asp-for="EventItem.Capacity" type="number" min="1" class="form-control" />
+        <span asp-validation-for="EventItem.Capacity" class="text-danger"></span>
+    </div>
+  <button type="submit" class="btn btn-success">Vytvořit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

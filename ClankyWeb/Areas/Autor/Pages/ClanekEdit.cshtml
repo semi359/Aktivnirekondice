@@ -1,0 +1,85 @@
+﻿@page "/clanek/edit/{IdClanku:int}"
+@model ClankyWeb.Areas.Autor.Pages.ClanekEditModel
+@{
+    ViewData["Title"] = "Editace článku";
+}
+
+@if (Model.Data == null)
+{
+    <p>Článek nenalezen</p>
+    return;
+}
+
+<h1>@(Model.IdClanku == 0 ? "Nový článek" : "Editace článku")</h1>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+    <input type="hidden" asp-for="Data.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Data.Titulek" class="form-label">
+            Titulek <span class="text-danger">*</span>
+        </label>
+        <input asp-for="Data.Titulek" class="form-control" />
+        <span asp-validation-for="Data.Titulek" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Data.UrlKod" class="form-label">
+            URL kód <span class="text-danger">*</span>
+        </label>
+        <input asp-for="Data.UrlKod" class="form-control" />
+        <span asp-validation-for="Data.UrlKod" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Data.Datum" class="form-label">
+            Datum <span class="text-danger">*</span>
+        </label>
+        <input asp-for="Data.Datum" type="date" class="form-control" />
+        <span asp-validation-for="Data.Datum" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Data.Perex" class="form-label">
+            Perex <span class="text-danger">*</span>
+        </label>
+        <input asp-for="Data.Perex" class="form-control" />
+        <span asp-validation-for="Data.Perex" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Data.Text" class="form-label">
+            Text článku <span class="text-danger">*</span>
+        </label>
+        <textarea asp-for="Data.Text" class="form-control" rows="10"></textarea>
+        <span asp-validation-for="Data.Text" class="text-danger"></span>
+    </div>
+
+    <p>
+        <button type="submit" class="btn btn-success">
+            <i class="bi-floppy me-2"></i>Uložit
+        </button>
+        <a href="@(Model.IdClanku == 0 ? "/" : $"/clanek/{Model.Data.UrlKod}")"
+           class="btn btn-secondary">
+            <i class="bi-x me-2"></i>Zrušit
+        </a>
+        @if (Model.IdClanku > 0)
+        {
+            <form id="fromVymaz" method="post" asp-page-handler="Delete" class="d-inline">
+                <button type="button" class="btn btn-danger"
+                        onclick="if(confirm('Opravdu chcete článek smazat?')) $('#fromVymaz').submit()">
+                    <i class="bi-trash me-2"></i>Vymazat
+                </button>
+            </form>
+        }
+    </p>
+</form>
+
+
+@if (Model.IdClanku > 0)
+{
+    <form method="post" asp-page-handler="Vymazat" id="fromVymaz">
+        <input type="hidden" value="@Model.Data.Id" name="idClanku" />
+    </form>
+}

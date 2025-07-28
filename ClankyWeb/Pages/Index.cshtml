@@ -1,0 +1,148 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Hlavní strana";
+    ViewData["Description"] = "Jsme organizace, která se zaměřuje na zdraví našich klientů | Aktivní rekondice";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<section class="odsazeni">
+    <div class="container break-out">
+        <section class="container-fluid mt-5 px-0">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img src="/img/pobyty-carousel.webp" class="d-block custom-img" alt="pobyty" />
+                        <div class="carousel-caption d-none d-md-block">
+                            <a asp-page="/Nabidka" fragment="pobyty" class="btn btn-success">Pobyty</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/cviceni-carousel.webp" class="d-block custom-img" alt="cvičení" />
+                        <div class="carousel-caption d-none d-md-block">
+                            <a asp-page="/Nabidka" fragment="cviceni" class="btn btn-success">Zdravotně-kondiční cvičení</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/krouzek-carousel.webp" class="d-block custom-img" alt="kroužek" />
+                        <div class="carousel-caption d-none d-md-block">
+                            <a asp-page="/Nabidka" fragment="krouzek" class="btn btn-success">Sportovní kroužek</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Předchozí</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Další</span>
+                </button>
+            </div>
+        </section>
+    </div>
+</section>
+
+<section class="full-width-bg">
+    <div class="container">
+        <div class="row items-center row-cols-xl-2 row-cols-md-1 row-cols-1 g-3">
+            <div class="col">
+                <h2 class="mb-3">O nás</h2>
+                <p>
+                    Jsme mladá organizace, plná elánu do života, která si dává za úkol předat klientům znalosti a radost pro život prožitý ve spokojenosti nejen fyzické, ale i psychické.
+                    Zaměřujeme se na kvalitu života, která pro nás znamená pohyb bez omezení, správně nastavenou obranyschopnost těla i prevenci civilizačních onemocnění.
+                    Pomocí rekondičních pobytů, pravidelných cvičebních lekcí a na míru zvolených konzultací Vám nabízíme cestu k životu v rovnováze.
+                    Plně ctíme individualitu každého z nás, a proto jsou veškeré aktivity určeny všem lidem bez rozdílu věku nebo hendikepu.
+                    Přijďte si s námi zažít, jaké je žít život naplno.
+                </p>
+                <div style="text-align: center;">
+                    <a asp-page="/Nabidka" class="btn btn-success">Poskytované služby</a>
+                </div>
+            </div>
+            <div class="col text-center">
+                <img src="~/img/o-nas.webp" class="img-fluid  break-out" alt="Zakladatelky firmy" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="odsazeni">
+    <div class="container">
+        <h2 class="text-center mb-3">Recenze</h2>
+        <div class="row row-cols-xl-2 row-cols-md-1 row-cols-1 g-3">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text">Akce byla skvěle organizovaná a velmi jsem ocenila možnost účastnit se výletů do přírody ve skupině, což je mnohem příjemnější než cestovat sama. Nejvíce mě nadchl výlet podél Labe a hledání indicií kolem Horalky. Obdivuji nasazení a empatii Ivy a Jolany, které se nám věnovaly s velkou trpělivostí, empatií po celý týden. Celkově jsem si akci moc užila a považuji ji za skvělou příležitost pro seniory, kteří chtějí být aktivní a něco nového zažít.</p>
+                        <div class="col text-center">
+                            <p>
+                                <strong>Blanka</strong><br>
+                                Účastince pobytu - Podzim 2024
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text">Program byl, myslím, vyvážený, měli jsme i dost „osobního volna“ pro procházky.  Mne nejvíce oslovil kruhový trénink. Milé a poučné byly i večerní soutěže, které jste měly krásně připravené a určitě jsem si z nich odnesla řadu nových informací. Pokud mi to příroda a čas dovolí budu určitě vaše věrná účastnice nejen rekondičních pobytů, ale i cvičení či jiných aktivit.</p>
+                        <div class="col text-center">
+                            <p>
+                                <strong>Ivana</strong><br>
+                                Účastince pobytu - Červen 2024
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text">Stále na vás, pobyt, atmosféru a vůbec všechno, vzpomínám. Bylo to perfektní. Jste úžasné a váš přístup ke starší generaci je příkladný. Zůstaňte takové i nadále. Všude a všem o vás vyprávím. Moje tělo si zatím to celkové protažení pamatuje a musím to trochu obnovovat a cvičit i doma. Moc se mi v Krkonoších i s vámi líbilo, těším se na příště.</p>
+                        <div class="col text-center">
+                            <p>
+                                <strong>Iva</strong><br>
+                                Účastince pobytu - Květen 2024
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text">Krásně strávený pobyt. Program byl báječně pestrý a moc se mi líbil. Ještě jedno velké plus to mělo, a to po psychické stránce, že ten čas strávený s vaším mládím, pro mě byl přímo nabíjející. Ráda se zúčastním dalších akcí.</p>
+                        <div class="col text-center">
+                            <p>
+                                <strong>Eliška</strong><br>
+                                Účastince pobytu - Podzim 2023
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="full-width-bg text-center">
+    <div class="container">
+        <h2 class="mb-3">Sledujte nás na sociálních sítích!</h2>
+        <div class="row row-cols-xl-2 row-cols-md-2 row-cols-2">
+            <div class="col text-end">
+                <a href="https://www.facebook.com/firmaaktivnirekondice">
+                    <img src="img/facebook.svg" alt="facebook" width="100" height="100">
+                </a>
+            </div>
+            <div class="col text-start">
+                <a href="https://www.instagram.com/aktivni.rekondice">
+                    <img src="img/instagram.svg" alt="instagram" width="100" height="100">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>   

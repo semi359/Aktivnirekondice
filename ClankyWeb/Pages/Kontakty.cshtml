@@ -1,0 +1,176 @@
+﻿@page
+@model ClankyWeb.Pages.KontaktyModel
+@{
+    ViewData["Title"] = "Kontakty";
+    ViewData["Description"] = "Zde najdete naše kontaktní informace. Rádi vám zodpovíme vaše dotazy | Aktivní rekondice";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<section class="odsazeni">
+    <div class="container">
+        <div class="row row-cols-xl-2 row-cols-md-2 row-cols-1 g-3">
+            <div class="col">
+                <p>
+                    <strong>Adresa:</strong><br />
+                    Klicperova 1608<br />
+                    Dvůr Králové nad Labem, 544 01<br />
+                    Česká republika
+                </p>
+                <p>
+                    <strong>Telefon:</strong><br />
+                    +420 733 528 284<br />
+                    +420 731 383 207
+                </p>
+                <p>
+                    <strong>Email:</strong><br />
+                    aktivnistari.rekondice@gmail.com
+                </p>
+                <p>
+                    <strong>IČO:</strong><br />
+                    19339364<br />
+                    21343071
+                </p>
+            </div>
+            <div class="col">
+                <h2>Kontaktujte nás</h2>
+
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Form.FirstName" class="form-label">
+                            Jméno <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="Form.FirstName" class="form-control" />
+                        <span asp-validation-for="Form.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Form.LastName" class="form-label">
+                            Příjmení <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="Form.LastName" class="form-control" />
+                        <span asp-validation-for="Form.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Form.Email" class="form-label">
+                            E-mail <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="Form.Email" class="form-control" />
+                        <span asp-validation-for="Form.Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Form.Message" class="form-label">Zpráva</label>
+                        <textarea asp-for="Form.Message" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Form.Message" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success">Odeslat</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="thankYouModal" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Děkujeme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zavřít"></button>
+            </div>
+            <div class="modal-body">
+                Děkujeme, že nás kontaktujete.
+                Brzy se vám ozveme na e-mail
+                <strong>@Model.SubmittedEmail</strong>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        @if (Model.IsSubmitted)
+        {
+            <text>
+                        var modal = new bootstrap.Modal(
+                        document.getElementById('thankYouModal'),
+                        { backdrop: false }
+                    );
+                modal.show();
+            </text>
+        }
+              });
+    </script>
+}
+
+
+<section class="full-width-bg">
+    <div class="container odsazeni">
+        <div class="row align-items-start row-cols-xl-2 row-cols-lg-2 row-cols-1 g-3">
+            <div class="col text-center break-out order-2 order-lg-1">
+                <img class="mx-auto d-block"
+                     src="~/img/kontakt-iva.webp"
+                     alt="Bc. Iva Křížová"
+                     loading="lazy">
+            </div>
+            <div class="col order-1 order-lg-2">
+                <h2>Bc. Iva Křížová</h2>
+                <p>
+                    <i class="bi bi-telephone"></i> +420 733 528 284<br />
+                    <i class="bi bi-mailbox"></i> aktivnistari.rekondice@gmail.com
+                </p>
+                <h3>Vzdělání a kurzy</h3>
+                <p>
+                    <i class="bi bi-journal-bookmark-fill"></i> Bc. Fyzioterapie na FBMI ČVUT (2019–2022)<br />
+                    <i class="bi bi-journal-bookmark-fill"></i> Mgr. Aplikovaná tělesná výchova a sport osob se specifickými potřebami (2022–dosud)<br />
+                    <i class="bi bi-journal-bookmark-fill"></i> Kurzy: Komplexní terapie jizev, Kineziotaping, Komplexní terapie pletence ramenního
+                </p>
+                <h3>Zaměření</h3>
+                <p><i class="bi bi-pin"></i> Pobytové kurzy, Zdravotně-kondiční cvičení, Fyzioterapie</p>
+                <h3>Zájmy a sport</h3>
+                <p>
+                    <i class="bi bi-emoji-smile"></i> Vysokohorská turistika, cukrařina, zimní sporty<br />
+                    <i class="bi bi-emoji-smile"></i> Bývalá reprezentantka ČR v alpském lyžování
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container odsazeni">
+        <div class="row align-items-start row-cols-xl-2 row-cols-lg-2 row-cols-1 g-3">
+            <div class="col text-center break-out order-2 order-lg-1">
+                <img class="mx-auto d-block"
+                     src="~/img/kontakt-jolana.webp"
+                     alt="Mgr. Jolana Semencová"
+                     loading="lazy">
+            </div>
+            <div class="col order-1 order-lg-2">
+                <h2>Mgr. Jolana Semencová</h2>
+                <p>
+                    <i class="bi bi-telephone"></i> +420 731 383 207<br />
+                    <i class="bi bi-mailbox"></i> aktivnistari.rekondice@gmail.com
+                </p>
+                <h3>Vzdělání a kurzy</h3>
+                <p>
+                    <i class="bi bi-journal-bookmark-fill"></i> Bc. Výživové poradenství a sportovní diagnostika (2019–2022)<br />
+                    <i class="bi bi-journal-bookmark-fill"></i> Mgr. Aplikovaná tělesná výchova a sport osob se specifickými potřebami (2022–2025)<br />
+                    <i class="bi bi-journal-bookmark-fill"></i> Kurzy: Zdravotně-tělesná výchova, Sportovní a rekondiční masáž, Vývojová kineziologie, SM Systém (1A-D)
+                </p>
+                <h3>Zaměření</h3>
+                <p><i class="bi bi-pin"></i> Pobytové kurzy, Zdravotně-kondiční cvičení, Fyzioterapie, Výživové poradenství, Diagnostika, Masáže</p>
+                <h3>Zájmy a sport</h3>
+                <p>
+                    <i class="bi bi-emoji-smile"></i> Turistika, synchronizované plavání, psychologie a regenerace ve sportu<br />
+                    <i class="bi bi-emoji-smile"></i> Bývalá reprezentantka ČR v synchronizovaném plavání
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

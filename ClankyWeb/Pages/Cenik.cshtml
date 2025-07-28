@@ -1,0 +1,126 @@
+﻿@page
+@model ClankyWeb.Pages.CenikModel
+@{
+    ViewData["Title"] = "Ceník";
+    ViewData["Description"] = "Zde najdete veškeré ceny na služby poskytované naší firmou | Aktivní rekondice";
+
+}
+<h1>@ViewData["Title"]</h1>
+<section class="odsazeni">
+    <div class="container mt-5">
+
+        <div class="table-responsive break-out mb-4">
+            <table class="table table-bordered text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Aktivita</th>
+                        <th>Samostatná lekce</th>
+                        <th>Permanentka / 5 vstupů *</th>
+                        <th>Permanentka / 10 vstupů **</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Zdravotně kondiční cvičení</td>
+                        <td>180,-</td>
+                        <td>800,-</td>
+                        <td>1.500,-</td>
+                    </tr>
+                    <tr>
+                        <td>Sportovní kroužek pro seniory</td>
+                        <td>200,-</td>
+                        <td>900,-</td>
+                        <td>1.700,-</td>
+                    </tr>
+                </tbody>
+                <tfoot class="text-start">
+                    <tr>
+                        <td colspan="4">
+                            * Platnost permanentky je 90 dní od zakoupení <br>
+                            ** Platnost permanentky je 6 měsíců od zakoupení.
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="table-responsive break-out mb-4">
+            <table class="table table-bordered text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Masáže</th>
+                        <th>30 minut</th>
+                        <th>60 minut</th>
+                        <th>90 minut</th>
+                        <th>120 minut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sportovní a rekondiční masáž</td>
+                        <td>450,-</td>
+                        <td>900,-</td>
+                        <td>1.350,-</td>
+                        <td>1.800,-</td>
+                    </tr>
+                    <tr>
+                        <td>Relaxační masáž</td>
+                        <td>450,-</td>
+                        <td>900,-</td>
+                        <td>1.350,-</td>
+                        <td>1.800,-</td>
+                    </tr>
+                    <tr>
+                        <td>Baňková masáž zad</td>
+                        <td>450,-</td>
+                        <td>900,-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive break-out">
+            <table class="table table-bordered text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Aktivita</th>
+                        <th>Cena</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Individuální cvičení pod dohledem terapeuta *</td>
+                        <td>400,- / 30 minut <br>750,- / 55 minut</td>
+                    </tr>
+                    <tr>
+                        <td>Diagnostika pohybového aparátu</td>
+                        <td>900,- / cca 1 hodina</td>
+                    </tr>
+                    <tr>
+                        <td>Kineziotaping **</td>
+                        <td>2,- / 1 cm</td>
+                    </tr>
+                    <tr>
+                        <td>Cross tape</td>
+                        <td>20,- / kus</td>
+                    </tr>
+                    <tr>
+                        <td>On-line konzultace</td>
+                        <td>300,- / 30 minut</td>
+                    </tr>
+                </tbody>
+                <tfoot class="text-start">
+                    <tr>
+                        <td colspan="2">
+                            * Nelze využít bez předchozí diagnostiky pohybového aparátu<br>
+                            ** V rámci diagnostiky je interpretace výsledků a sestavení individuálního plánu
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</section>

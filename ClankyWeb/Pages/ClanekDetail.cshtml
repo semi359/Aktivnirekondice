@@ -1,0 +1,89 @@
+﻿@page "/clanek/{UrlKod}"
+@model ClankyWeb.Pages.ClanekDetailModel
+@{
+    ViewData["Title"] = Model.Data?.Titulek;
+}
+
+@if (Model.Data == null)
+{
+    <p>Článek nenalezen</p>
+    <p><a href="/">Zpět</a></p>
+    return;
+}
+
+<h1 class="display-1">@Model.Data.Titulek</h1>
+<p class="lead">@Model.Data.Perex</p>
+<p><strong>@Model.Data.Autor.NickName</strong> (@Model.Data.Datum.ToString("d.M.yyyy"))</p>
+<p>@Html.Raw(Model.Data.Text)</p>
+
+<p>
+     <a asp-page="/Aktuality" class="btn btn-success">
+        <i class="bi-arrow-return-left me-2"></i>Zpět na přehled článků
+    </a>
+    @if (User.IsInRole(NRole.Autor) || User.IsInRole(NRole.Admin))
+    {
+        <a href="/clanek/edit/@Model.Data.Id" class="btn btn-success">
+            <i class="bi-pencil me-2"></i>Upravit článek
+        </a>
+    }
+</p>
+
+
+<h2>Komentáře</h2>
+
+<div class="list-group">
+    @foreach (var item in Model.Data.Komentare.OrderByDescending(x => x.Datum))
+    {
+        <div class="list-group-item">
+        @if(User.IsInRole(NRole.Admin))
+        {
+            <button class="btn btn-danger float-end btn-sm"
+            onclick="vymazKomentar(@item.Id)">
+            <i class="bi bi-x"></i>
+            </button>
+        }
+            <p class="lead">@item.Vlozil.NickName (@item.Datum.ToDaysString())</p>
+            <p>@item.Text</p>
+        </div>
+    }
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="alert alert-info">
+            Komentáře mohou zanechávat pouze registrovaní uživatelé.
+        </div>
+    }
+
+    @if (User.IsInRole(NRole.Ctenar))
+    {
+        <div class="list-group-item">
+            <form method="post" asp-page-handler="">
+                <label class="lead" for="komentar">Nový komentář</label>
+                <textarea class="form-control" rows="5" name="komentar" id="komentar"></textarea>
+                <p class="text-end mt-2">
+                    <button class="btn btn-success" type="submit">
+                        <i class="bi-send"></i>Odeslat
+                    </button>
+                </p>
+            </form>
+        </div>
+    }
+</div>
+
+
+@if (User.IsInRole(NRole.Admin))
+{
+    <form method="post" asp-page-handler="Vymazat" id="fromVymaz">
+        <input type="hidden" value="0" name="idKomentare" id="idKomentare" />
+    </form>
+
+    @section Scripts {
+        <script>
+            function vymazKomentar(id) {
+                if (confirm("Opravdu chcete smazat tento komentář?")) {
+                    $("#idKomentare").val(id);
+                    $("#fromVymaz").trigger("submit");
+                }
+            }
+        </script>
+    }
+}

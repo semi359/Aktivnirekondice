@@ -1,0 +1,24 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Potvrzení registrace";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@{
+    if (Model.DisplayConfirmAccountLink)
+    {
+        <p>
+            Aplikace momentálně nepoužívá reálného odesílatele e-mailů.<br/>
+            Pro testovací účely klikni sem:
+            <a id="confirm-link" href="@Model.EmailConfirmationUrl">Potvrdit účet</a>
+        </p>
+    }
+    else
+    {
+        <p>
+            Zkontroluj, prosím, svoji e-mailovou schránku a postupuj podle instrukcí k potvrzení účtu.
+        </p>
+    }
+}

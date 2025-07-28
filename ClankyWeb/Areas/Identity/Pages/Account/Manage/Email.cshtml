@@ -1,0 +1,76 @@
+﻿@page
+@model EmailModel
+@{
+    ViewData["Title"] = "Správa e-mailu";
+    ViewData["ActivePage"] = ManageNavPages.Email;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="email-form" method="post">
+            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
+            @if (Model.IsEmailConfirmed)
+            {
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">
+                        E-mail
+                    </label>
+                    <div class="input-group">
+                        <input asp-for="Email"
+                               class="form-control"
+                               placeholder="Zadejte svůj e-mail"
+                               disabled />
+                        <span class="input-group-text text-success fw-bold">✓</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">
+                        E-mail
+                    </label>
+                    <div class="input-group">
+                        <input asp-for="Email"
+                               class="form-control"
+                               placeholder="Zadejte svůj e-mail"
+                               disabled />
+                        <button id="email-verification"
+                                type="submit"
+                                asp-page-handler="SendVerificationEmail"
+                                class="btn btn-link align-self-center">
+                            Odeslat ověřovací e-mail
+                        </button>
+                    </div>
+                </div>
+            }
+
+            <div class="mb-3">
+                <label asp-for="Input.NewEmail" class="form-label">
+                    Nový e-mail <span class="text-danger">*</span>
+                </label>
+                <input asp-for="Input.NewEmail"
+                       class="form-control"
+                       autocomplete="email"
+                       aria-required="true"
+                       placeholder="Zadejte nový e-mail" />
+                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+            </div>
+
+            <button id="change-email-button"
+                    type="submit"
+                    asp-page-handler="ChangeEmail"
+                    class="w-100 btn btn-lg btn-success">
+                Změnit e-mail
+            </button>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

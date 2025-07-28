@@ -1,0 +1,43 @@
+﻿@page
+@model ClankyWeb.Pages.AktualityModel
+@{
+	ViewData["Title"] = "Aktuality";
+    ViewData["Description"] = "Čtěte nejnovější zprávy o rekondičních pobytech, zdravotně-kondičních lekcích a sportovních kroužcích. Přehled termínů, novinek a užitečných tipů | Aktivní rekondice";
+
+}
+@if (Model.Data == null)
+{
+    <p>Data nenalezena</p>
+    return;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (User.IsInRole(NRole.Autor) || User.IsInRole(NRole.Admin))
+{
+    <p class="text-end">
+        <a href="/clanek/edit/0" class="btn btn-success">
+            <i class="bi-file-earmark-plus"></i>Nový článek
+        </a>
+    </p>
+}
+
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    @foreach (var item in Model.Data)
+    {
+        <div class="col">
+            <div class="list-group-item h-100">
+                <h2 class="display-6 fs-3 mb-1">
+                    <a asp-page="/ClanekDetail" asp-route-UrlKod="@item.UrlKod" class="text-decoration-none">
+                        @item.Titulek
+                    </a>
+                </h2>
+                <p class="fs-6 text-muted mb-2">
+                    @item.Autor.NickName (@item.Datum.ToDaysString())
+                </p>
+                <p>@item.Perex</p>
+            </div>
+        </div>
+    }
+</div>

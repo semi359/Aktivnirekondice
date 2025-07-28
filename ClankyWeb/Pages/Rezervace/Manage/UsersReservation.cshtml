@@ -1,0 +1,52 @@
+﻿@page "{id:int}"
+@using ClankyWeb.Data.Models
+@model ClankyWeb.Pages.Rezervace.Manage.UsersReservationModel
+@{
+    ViewData["Title"] = "Správa rezervací";
+}
+
+<p class="mb-3">
+    <button type="button" onclick="history.back()" class="btn btn-success">
+        <i class="bi bi-arrow-left me-2"></i>Zpět na událost
+    </button>
+</p>
+
+<h1>@ViewData["Title"] – @Model.EventItem.Title</h1>
+
+<p>Místa: @Model.ConfirmedCount / @Model.EventItem.Capacity</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Uživatel</th>
+            <th>Datum registrace</th>
+            <th>Status</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.EventItem.Reservations.OrderBy(r => r.RegisteredAt))
+        {
+            <tr>
+                <td>@r.User.UserName</td>
+                <td>@r.RegisteredAt.ToString("g")</td>
+                <td>@r.Status</td>
+                <td>
+                    @* potvrdit jen pokud není plno *@
+                    @if (!Model.IsCapacityFull)
+                    {
+                        <form method="post" asp-page-handler="Confirm" class="d-inline">
+                            <input type="hidden" name="reservationId" value="@r.Id" />
+                            <button class="btn btn-sm btn-success">Potvrdit</button>
+                        </form>
+                    }
+                    @* vždy možnost zamítnout nebo změnit *@
+                    <form method="post" asp-page-handler="Reject" class="d-inline">
+                        <input type="hidden" name="reservationId" value="@r.Id" />
+                        <button class="btn btn-sm btn-danger">Zamítnout</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

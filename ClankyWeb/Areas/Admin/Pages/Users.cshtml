@@ -1,0 +1,75 @@
+﻿@page
+@model ClankyWeb.Areas.Admin.Pages.UsersModel
+@{
+    ViewData["Title"] = "Správa uživatelů";
+}
+
+@if (Model.Data == null)
+{
+    <p>Data nenalezena</p>
+    return;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nick name</th>
+            <th>User name</th>
+            <th>E-mail</th>
+            <th>Role</th>
+            <th>Ban</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Data)
+        {
+            <tr>
+                <td>@user.NickName</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <button type="button" onclick="roleSwitch('@user.UserName', '@NRole.Ctenar')"
+                        class="btn btn-@(user.Roles.Contains(NRole.Ctenar) ? "success" : "light")">@NRole.Ctenar</button>
+                    <button type="button" onclick="roleSwitch('@user.UserName', '@NRole.Autor')"
+                        class="btn btn-@(user.Roles.Contains(NRole.Autor) ? "success" : "light")">@NRole.Autor</button>
+                    <button type="button" onclick="roleSwitch('@user.UserName', '@NRole.Admin')"
+                        class="btn btn-@(user.Roles.Contains(NRole.Admin) ? "danger" : "light")">@NRole.Admin</button>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="user" value="@user.UserName" />
+                        @if ((user.BanEnds ?? DateTimeOffset.MinValue) < DateTimeOffset.MaxValue &&
+                       !user.Roles.Contains(NRole.Admin))
+                        {
+                            <button type="submit" asp-page-handler="BanBan"
+                            class="btn btn-danger">Ban</button>
+                        }
+                        @if ((user.BanEnds ?? DateTimeOffset.MinValue) > DateTimeOffset.Now)
+                        {
+                            <button type="submit" asp-page-handler="BanMilost"
+                                class="btn btn-success">Milost</button>
+                            <p>Ban končí: @user.BanEnds?.ToString("d.M.yyyy HH:mm")</p>
+                        }
+                    </form>
+                </td>
+            </tr>
+        }        
+    </tbody>
+</table>
+
+<form method="post" asp-page-handler="Role" id="formRole">
+    <input type="hidden" name="userName" id="roleUserName" />
+    <input type="hidden" name="roleName" id="roleRoleName" />
+</form>
+
+@section Scripts {
+    <script>
+        function roleSwitch(userName, roleName) {
+            $("#roleUserName").val(userName);
+            $("#roleRoleName").val(roleName);
+            $("#formRole").trigger("submit");
+        }
+    </script>
+}

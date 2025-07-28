@@ -1,0 +1,94 @@
+﻿@page "{id:int}"
+@model ClankyWeb.Pages.Rezervace.DetailsModel
+@using ClankyWeb.Data.Models
+
+@{
+    ViewData["Title"] = Model.EventItem?.Title ?? "Událost nenalezena";
+}
+
+@if (Model.EventItem == null)
+{
+    <div class="alert alert-warning mt-5 pt-5">
+        Tato událost neexistuje nebo již byla odstraněna.
+    </div>
+    <p>
+        <a asp-page="./Rezervace" class="btn btn-outline-success">
+            <i class="bi bi-arrow-left me-2"></i>Zpět na seznam událostí
+        </a>
+    </p>
+}
+else
+{
+    <p class="mb-4">
+        <a asp-page="./Rezervace" class="btn btn-outline-success">
+            <i class="bi bi-arrow-left me-2"></i>
+            Zpět na seznam událostí
+        </a>
+    </p>
+
+    <h1>@Model.EventItem.Title</h1>
+    <p class="text-muted">@Model.EventItem.Date.ToString("f")</p>
+    <p>@Model.EventItem.Description</p>
+
+    <hr />
+
+    <p>
+        <strong>Kapacita:</strong>
+        @Model.ConfirmedCount / @Model.EventItem.Capacity
+    </p>
+
+    @if (!Model.IsRegistered)
+    {
+        @if (Model.IsCapacityFull)
+        {
+            <div class="alert alert-warning">
+                Kapacita na tuto událost je naplněna.
+            </div>
+        }
+        else
+        {
+            <form method="post" asp-page-handler="Register">
+                <button type="submit" class="btn btn-success">
+                    Přihlásit se na událost
+                </button>
+            </form>
+        }
+    }
+    else
+    {
+        var myRes = Model.EventItem.Reservations
+                       .FirstOrDefault(r => r.UserId == Model.CurrentUserId);
+        if (myRes?.Status == ReservationStatus.Confirmed)
+        {
+            <div class="alert alert-success">Vaše účast byla potvrzena.</div>
+        }
+        else if (myRes?.Status == ReservationStatus.Rejected)
+        {
+            <div class="alert alert-danger">Vaše účast byla zamítnuta.</div>
+        }
+        else
+        {
+            <div class="alert alert-info">Čeká na schválení vaší účasti.</div>
+        }
+    }
+
+    @if (User.IsInRole(NRole.Admin) || User.IsInRole(NRole.Autor))
+    {
+        <p class="mt-4">
+            <a asp-page="./Manage/UsersReservation" asp-route-id="@Model.EventItem.Id"
+               class="btn btn-success me-2">Spravovat rezervace</a>
+            <a asp-page="./Edit" asp-route-id="@Model.EventItem.Id"
+               class="btn btn-success me-2">Upravit událost</a>
+
+            <form method="post"
+                  asp-page-handler="Delete"
+                  class="d-inline"
+                  onsubmit="return confirm('Opravdu chcete odstranit tuto událost?');">
+                <input type="hidden" name="id" value="@Model.EventItem.Id" />
+                <button type="submit" class="btn btn-danger">
+                    Odstranit událost
+                </button>
+            </form>
+        </p>
+    }
+}
